@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime
 from . import storage
 
+
 class BaseModel:
     """ base class of all other classes """
     def __init__(self, *args, **kwargs):
