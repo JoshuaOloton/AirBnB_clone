@@ -41,3 +41,7 @@ class BaseModel:
     def __str__(self):
         """ str function """
         return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
+
+    def __repr__(self):
+        """ repr function """
+        return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
