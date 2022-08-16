@@ -93,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self,line):
         """Deletes an instance based on the class name\n"""
-        if notline:
+        if not line:
             print("** class name missing **")
             return False
         args = line.split()
@@ -106,6 +106,18 @@ class HBNBCommand(cmd.Cmd):
         else:
             storage.all().pop(args[0]+"."+args[1])
             storage.save()
+
+    def do_all(self,line):
+        """Prints all string representation of all instances\n"""
+        all_list = []
+        if line:
+            args = line.split()
+            if args[0] not in type(self).valid_classes:
+                print("** class doesn't exist **")
+                return False
+            for key, value in storage.all().items():
+                all_list.append(value._str_())
+            print(all_list)
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
