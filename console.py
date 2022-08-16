@@ -38,6 +38,65 @@ class HBNBCommand(cmd.Cmd):
         """ when command prefix is not recognized """
         if line == 'EOF':
             return True
+        obj_list = []
+        args = line.split('.')
+        if args[0] in type(self).valid_classes:
+            if args[1] == "all()":
+                for key, value in storage.all().items():
+                    if args[0] in key:
+                        obj_list.append(value)
+                print(obj_list)
+                return False
+            if args[1] == "count()":
+                for key, value in storage.all().items():
+                    if args[0] in key:
+                        obj_list.append(value)
+                print(len(obj_list))
+                return False
+            if args[1] == "show()":
+                for key, value in storage.all().items():
+                    if args[0] in key:
+                        obj_list.append(value)
+                print(len(obj_list))
+                return False
+            if 'show' in args[1]:
+                if len(args[1]) != 44:
+                    print("** no instance found **")
+                    return False
+                id = args[1][6:-2]
+                for k, v in storage.all().items():
+                    if id in k:
+                        print(v)
+                        return False
+                print("** no instance found **")
+                return False
+            if 'destroy' in args[1]:
+                if len(args[1]) != 47:
+                    print("** no instance found **")
+                    return False
+                id = args[1][9:-2]
+                self.do_destroy(args[0]+" "+id)
+                return False
+            if 'update' in args[1]:
+                subargs = args[1][7:-1]
+                if len(subargs) == 0:
+                    print("** instance id missing **")
+                    return False
+                subargs = re.split('[,]\s*', subargs)
+                subargs = list(map(lambda x: shlex.split(x)[0], subargs))
+
+                # Check if dict type is present to update by dictionary
+                dict_match = re.search('({.+})', args[1])
+                if dict_match:
+                    update_dict = ast.literal_eval(dict_match.group(0))
+                    id = subargs[0]
+                    for key, value in update_dict.items():
+                        # print(args[0]+ " " + id + " " + key + " " + str(value))
+                        self.do_update(args[0]+ " " + id + " " + key + " " + str(value))
+                    return False
+                subargs = ' '.join(subargs)
+                self.do_update(" ".join([args[0], subargs]))
+                return False
         super().default(line)
 
     def do_quit(self, arg):
@@ -52,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         """Create new instance of class mode\n"""
         if not line:
-            print("**class name missing**")
+            print("** class name missing **")
             return False
         args = line.split()
         if args[0] == "BaseModel":
