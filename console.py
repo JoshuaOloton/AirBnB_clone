@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
             return True
         obj_list = []
         args = line.split('.')
-        if args[0] in type(self).valid_classes:
+        if len(args) > 1 and args[0] in type(self).valid_classes:
             if args[1] == "all()":
                 for key, value in storage.all().items():
                     if args[0] in key:
@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 2:
             print("** instance id missing **")
         elif args[0]+"."+args[1] not in all_objs:
-            print("** no instance found**")
+            print("** no instance found **")
         else:
             print(all_objs[args[0]+"."+args[1]].__str__())
 
@@ -174,9 +174,9 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in type(self).valid_classes:
                 print("** class doesn't exist **")
                 return False
-            for key, value in storage.all().items():
-                all_list.append(value.__str__())
-            print(all_list)
+        for key, value in storage.all().items():
+            all_list.append(value.__str__())
+        print(all_list)
 
     def do_update(self, line):
         """  Updates an instance based on the class name and id\n"""
