@@ -148,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0]+"."+args[1] not in all_objs:
             print("** no instance found**")
         else:
-            print(all_objs[args[0]+"."+args[1]]._str_())
+            print(all_objs[args[0]+"."+args[1]].__str__())
 
     def do_destroy(self,line):
         """Deletes an instance based on the class name\n"""
@@ -175,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return False
             for key, value in storage.all().items():
-                all_list.append(value._str_())
+                all_list.append(value.__str__())
             print(all_list)
 
     def do_update(self, line):
@@ -199,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
             value = args[3]
             if args[2] == 'age' or args[2] == 'my_number':
                 value = int(args[3])
-            obj._dict_[args[2]] = value
+            obj.__dict__[args[2]] = value
             storage.save()
 
 if __name__ == "__main__":
