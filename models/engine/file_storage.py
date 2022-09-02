@@ -35,6 +35,7 @@ class FileStorage:
                 loaded_dict = json.load(file)
         except Exception:
             pass
-        from models import base_model
-        for key, value in loaded_dict.items():
-            type(self).__objects[key] = base_model.BaseModel(**value)
+        else:
+            from models import base_model
+            for key, value in loaded_dict.items():
+                type(self).__objects[key] = base_model.BaseModel(**value)

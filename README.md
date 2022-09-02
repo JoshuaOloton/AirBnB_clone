@@ -1,6 +1,279 @@
-<div>
-  <img src="https://user-images.githubusercontent.com/69850751/175876062-f252cc1b-bd44-46b3-9ddb-a7692b2eede4.png" alt="">
-</div>
+# 0x00. AirBnB clone - The console
 
-## PROJECT DESCRIPTION
-This is the first phase of a four phase project, to create a basic clone of the AirBnB web app. In this first phase a basic console was created using the Cmd Python module, to manage the objects of the whole project, being able to implement the methods create a new object, retrieve an object, do operations on objects, update atrributes of an object, and destroy an object.
+## Table of contents
+
+* [0x01 Introduction](#0x01-Introduction)
+* [0x02 Environment](#0x02-Environment)
+* [0x03 Installation](#0x03-Installation)
+* [0x04 Testing](#0x04-Testing)
+* [0x05 Usage](#0x05-Usage)
+* [0x06 Authors](#0x06-Authors)
+
+## 0x01 Introduction
+
+Team project to build a clone of [AirBnB](https://www.airbnb.com/).
+
+The console is a command interpreter to manage objects abstraction between objects and how they are stored.
+
+To see the fundamental background of the project visit the [Wiki](https://github.com/ralexrivero/AirBnB_clone/wiki).
+
+The console performs the following tasks:
+
+* creates a new class instance
+* retrieves the object from a file
+* perform operations on objects
+* destroys the object
+
+### Storage
+
+All the classes are handled by the `Storage` engine in the `FileStorage` Class.
+
+## 0x02 Environment
+
+<!-- ubuntu -->
+<a href="https://ubuntu.com/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Ubuntu&color=E95420&logo=Ubuntu&logoColor=E95420&labelColor=2F333A" alt="Suite CRM"></a> <!-- bash --> <a href="https://www.gnu.org/software/bash/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=GNU%20Bash&color=4EAA25&logo=GNU%20Bash&logoColor=4EAA25&labelColor=2F333A" alt="terminal"></a> <!-- python--> <a href="https://www.python.org" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Python&color=FFD43B&logo=python&logoColor=3776AB&labelColor=2F333A" alt="python"></a> </a> <!-- vim --> <a href="https://www.vim.org/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Vim&color=019733&logo=Vim&logoColor=019733&labelColor=2F333A" alt="Suite CRM"></a> <!-- vs code --> <a href="https://code.visualstudio.com/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Visual%20Studio%20Code&color=5C2D91&logo=Visual%20Studio%20Code&logoColor=5C2D91&labelColor=2F333A" alt="Suite CRM"></a> </a><!-- git --> <a href="https://git-scm.com/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Git&color=F05032&logo=Git&logoColor=F05032&labelColor=2F333A" alt="git distributed version control system"></a> <!-- github --> <a href="https://github.com" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=GitHub&color=181717&logo=GitHub&logoColor=f2f2f2&labelColor=2F333A" alt="Github"></a>
+ <!-- Style guidelines -->
+* Style guidelines:
+  * [pycodestyle (version 2.7.*)](https://pypi.org/project/pycodestyle/)
+  * [PEP8](https://pep8.org/)
+
+All the development and testing was runned over an operating system Ubuntu 20.04 LTS using Python 3.8.3. The editors used were VIM 8.1.2269 and VSCode.
+
+## 0x03 Installation
+
+```bash
+git clone https://github.com/aysuarex/AirBnB_clone.git
+```
+
+cd to the `AirBnb` directory and run the command:
+
+```bash
+ ./console.py
+```
+
+### Execution
+
+In interactive mode
+
+```bash
+$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb)
+(hbnb)
+(hbnb) quit
+$
+```
+
+in Non-interactive mode
+
+```bash
+$ echo "help" | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb)
+$
+$ cat test_help
+help
+$
+$ cat test_help | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb)
+$
+```
+
+## 0x04 Testing
+
+All the test are defined in the `tests` folder.
+
+### Documentation
+
+* Modules:
+
+```python
+python3 -c 'print(__import__("my_module").__doc__)'
+```
+
+* Classes:
+
+```python
+python3 -c 'print(__import__("my_module").MyClass.__doc__)'
+```
+
+* Functions (inside and outside a class):
+
+```python
+python3 -c 'print(__import__("my_module").my_function.__doc__)'
+```
+
+and
+
+```python
+python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'
+```
+
+### Python Unit Tests
+
+* unittest module
+* File extension ``` .py ```
+* Files and folders star with ```test_```
+* Organization:for ```models/base.py```, unit tests in: ```tests/test_models/test_base.py```
+* Execution command: ```python3 -m unittest discover tests```
+* or: ```python3 -m unittest tests/test_models/test_base.py```
+
+### run test in interactive mode
+
+```bash
+echo "python3 -m unittest discover tests" | bash
+```
+
+### run test in non-interactive mode
+
+To run the tests in non-interactive mode, and discover all the test, you can use the command:
+
+```bash
+python3 -m unittest discover tests
+```
+
+
+## 0x05 Usage
+
+* Start the console in interactive mode:
+
+```bash
+$ ./console.py
+(hbnb)
+```
+
+* Use help to see the available commands:
+
+```bash
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb)
+```
+
+* Quit the console:
+
+```bash
+(hbnb) quit
+$
+```
+
+### Commands
+
+> The commands are displayed in the following format *Command / usage / example with output*
+
+* Create
+
+> *Creates a new instance of a given class. The class' ID is printed and the instance is saved to the file file.json.*
+
+```bash
+create <class>
+
+```
+
+```bash
+(hbnb) create BaseModel
+6cfb47c4-a434-4da7-ac03-2122624c3762
+(hbnb)
+```
+
+* Show
+
+```bash
+show <class> <id>
+```
+
+```bash
+(hbnb) show BaseModel 6cfb47c4-a434-4da7-ac03-2122624c3762
+[BaseModel] (a) [BaseModel] (6cfb47c4-a434-4da7-ac03-2122624c3762) {'id': '6cfb47c4-a434-4da7-ac03-2122624c3762', 'created_at': datetime.datetime(2021, 11, 14, 3, 28, 45, 571360), 'updated_at': datetime.datetime(2021, 11, 14, 3, 28, 45, 571389)}
+(hbnb)
+```
+
+* Destroy
+
+> *Deletes an instance of a given class with a given ID.*
+> *Update the file.json*
+
+```bash
+(hbnb) create User
+4a5ee31f-8317-4dc4-9f3e-5e04ff746fd7
+(hbnb) destroy User 4a5ee31f-8317-4dc4-9f3e-5e04ff746fd7
+(hbnb) show User 4a5ee31f-8317-4dc4-9f3e-5e04ff746fd7
+** no instance found **
+(hbnb)
+```
+
+* all
+
+> *Prints all string representation of all instances of a given class.*
+> *If no class is passed, all classes are printed.*
+
+```bash
+(hbnb) create BaseModel
+ddacb457-9b82-423d-bc16-837c4575b482
+(hbnb) all BaseModel
+["[BaseModel] (ddacb457-9b82-423d-bc16-837c4575b482) {'id': 'ddacb457-9b82-423d-bc16-837c4575b482', 'created_at': datetime.datetime(2022, 9, 2, 11, 39, 45, 283378), 'updated_at': datetime.datetime(2022, 9, 2, 11, 39, 45, 283497)}"]
+(hbnb) all
+["[BaseModel] (ddacb457-9b82-423d-bc16-837c4575b482) {'id': 'ddacb457-9b82-423d-bc16-837c4575b482', 'created_at': datetime.datetime(2022, 9, 2, 11, 39, 45, 283378), 'updated_at': datetime.datetime(2022, 9, 2, 11, 39, 45, 283497)}"]
+```
+
+* count
+
+> *Prints the number of instances of a given class.*
+
+```bash
+(hbnb) create City
+885c86a7-009a-4776-83ea-9da621d2c35b
+(hbnb) City.count()
+1
+(hbnb)
+```
+
+* update
+
+> *Updates an instance based on the class name, id, and kwargs passed.*
+> *Update the file.json*
+
+```bash
+(hbnb) create User
+0403bf34-a48d-467d-9aa4-993a049760bb
+(hbnb) update User 0403bf34-a48d-467d-9aa4-993a049760bb name Joshua
+(hbnb) show User 0403bf34-a48d-467d-9aa4-993a049760bb
+[User] (0403bf34-a48d-467d-9aa4-993a049760bb) {'id': '0403bf34-a48d-467d-9aa4-993a049760bb', 'created_at': datetime.datetime(2022, 9, 2, 11, 36, 2, 622196), 'updated_at': datetime.datetime(2022, 9, 2, 11, 36, 2, 622314), 'name': 'Joshua'}
+(hbnb)
+
+```
+## Contact the Authors
+<details>
+    <summary>Joshua Oloton</summary>
+    <ul>
+    <li><a href="mailto:olotonjoshua@gmail.com">Email</a></li>
+    <li><a href="https://github.com/JoshuaOloton">Github</a></li>
+    <li><a href="https://twitter.com/Oloton_J">Twitter</a></li>
+    </ul>
+</details>
+<details>
+    <summary>Great Nwankire-Jonathan</summary>
+    <ul>
+    <li><a href="mailto:jagreat13@gmail.com">Email</a></li>
+    <li><a href="https://github.com/The-Great1">Github</a></li>
+    </ul>
+</details>
+
