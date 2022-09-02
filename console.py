@@ -23,7 +23,8 @@ class HBNBCommand(cmd.Cmd):
         "BaseModel", "User", "Place", "State", "City", "Amenity", "Review"
         ]
     int_attrs = [
-        "number_rooms", "number_bathrooms", "max_guest", "price_by_night", "age", "my_number"
+        "number_rooms", "number_bathrooms", "max_guest",
+        "price_by_night", "age", "my_number"
         ]
     float_attrs = [
         "latitude", "longitude"]
@@ -82,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
                 if len(subargs) == 0:
                     print("** instance id missing **")
                     return False
-                subargs = re.split('[,]\s*', subargs)
+                subargs = re.split('[,] *', subargs)
                 subargs = list(map(lambda x: shlex.split(x)[0], subargs))
 
                 # Check if dict type is present to update by dictionary
@@ -91,8 +92,8 @@ class HBNBCommand(cmd.Cmd):
                     update_dict = ast.literal_eval(dict_match.group(0))
                     id = subargs[0]
                     for key, value in update_dict.items():
-                        # print(args[0]+ " " + id + " " + key + " " + str(value))
-                        self.do_update(args[0]+ " " + id + " " + key + " " + str(value))
+                        self.do_update(
+                            args[0] + " " + id + " " + key + " " + str(value))
                     return False
                 subargs = ' '.join(subargs)
                 self.do_update(" ".join([args[0], subargs]))
@@ -106,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, arg):
         """ EOF command to exit the program\n"""
         return True
-    
+
     # program commands
     def do_create(self, line):
         """Create new instance of class mode\n"""
@@ -150,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(all_objs[args[0]+"."+args[1]].__str__())
 
-    def do_destroy(self,line):
+    def do_destroy(self, line):
         """Deletes an instance based on the class name\n"""
         if not line:
             print("** class name missing **")
@@ -166,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
             storage.all().pop(args[0]+"."+args[1])
             storage.save()
 
-    def do_all(self,line):
+    def do_all(self, line):
         """Prints all string representation of all instances\n"""
         all_list = []
         if line:
@@ -201,6 +202,7 @@ class HBNBCommand(cmd.Cmd):
                 value = int(args[3])
             obj.__dict__[args[2]] = value
             storage.save()
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
