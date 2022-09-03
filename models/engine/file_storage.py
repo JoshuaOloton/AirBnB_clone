@@ -17,7 +17,7 @@ class FileStorage:
     def new(self, obj):
         """ sets in __objects the obj with key <obj class name>.id """
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        type(self).__objects[key] = obj
 
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path) """
@@ -38,4 +38,5 @@ class FileStorage:
         else:
             from models import base_model
             for key, value in loaded_dict.items():
-                type(self).__objects[key] = base_model.BaseModel(**value)
+                obj_class = eval(value["__class__"])
+                type(self).__objects[key] = obj_class(**value)
