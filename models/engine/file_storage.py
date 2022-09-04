@@ -35,17 +35,29 @@ class FileStorage:
         with open(type(self).__file_path, 'w', encoding='utf-8') as file:
             json.dump(json_ret, file)
 
+    # def reload(self):
+    #     """ deserializes JSON file to __objects (if (__file_path) exists """
+    #     try:
+    #         with open(type(self).__file_path, encoding='utf-8') as file:
+    #             loaded_dict = json.load(file)
+    #     except Exception:
+    #         return
+    #     else:
+    #         from models import base_model
+    #         for key, value in loaded_dict.items():
+    #             obj_class = eval(value["__class__"])
+    #             # type(self).__objects[key] = obj_class(**value)
+    #             del value["__class__"]
+    #             self.new(obj_class(**value))
+
     def reload(self):
-        """ deserializes JSON file to __objects (if (__file_path) exists """
+        """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
-            with open(type(self).__file_path, encoding='utf-8') as file:
-                loaded_dict = json.load(file)
-        except Exception:
+            with open(FileStorage.__file_path) as f:
+                objdict = json.load(f)
+                for o in objdict.values():
+                    cls_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(cls_name)(**o))
+        except FileNotFoundError:
             return
-        else:
-            from models import base_model
-            for key, value in loaded_dict.items():
-                obj_class = eval(value["__class__"])
-                # type(self).__objects[key] = obj_class(**value)
-                del value["__class__"]
-                self.new(obj_class(**value))

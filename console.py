@@ -22,6 +22,9 @@ class HBNBCommand(cmd.Cmd):
     valid_classes = [
         "BaseModel", "User", "Place", "State", "City", "Amenity", "Review"
         ]
+    valid_dot_ops = [
+        "all", "count", "show", "destroy", "update"
+    ]
     int_attrs = [
         "number_rooms", "number_bathrooms", "max_guest",
         "price_by_night", "age", "my_number"
@@ -41,6 +44,9 @@ class HBNBCommand(cmd.Cmd):
             return True
         obj_list = []
         args = line.split('.')
+        if args[0] == '':
+            print("** class name missing **")
+            return False
         if len(args) > 1 and args[0] in type(self).valid_classes:
             if args[1] == "all()":
                 for key, value in storage.all().items():
@@ -48,19 +54,19 @@ class HBNBCommand(cmd.Cmd):
                         obj_list.append(value)
                 print(obj_list)
                 return False
-            if args[1] == "count()":
+            elif args[1] == "count()":
                 for key, value in storage.all().items():
                     if args[0] in key:
                         obj_list.append(value)
                 print(len(obj_list))
                 return False
-            if args[1] == "show()":
+            elif args[1] == "show()":
                 for key, value in storage.all().items():
                     if args[0] in key:
                         obj_list.append(value)
                 print(len(obj_list))
                 return False
-            if 'show' in args[1]:
+            elif 'show' in args[1]:
                 if len(args[1]) != 44:
                     print("** no instance found **")
                     return False
@@ -71,14 +77,17 @@ class HBNBCommand(cmd.Cmd):
                         return False
                 print("** no instance found **")
                 return False
-            if 'destroy' in args[1]:
+            elif 'destroy' in args[1]:
                 if len(args[1]) != 47:
-                    print("** no instance found **")
+                    if len(args[1]) == 9:
+                        print("** instance id missing **")
+                    else:
+                        print("** no instance found **")
                     return False
                 id = args[1][9:-2]
                 self.do_destroy(args[0]+" "+id)
                 return False
-            if 'update' in args[1]:
+            elif 'update' in args[1]:
                 subargs = args[1][7:-1]
                 if len(subargs) == 0:
                     print("** instance id missing **")
@@ -98,6 +107,9 @@ class HBNBCommand(cmd.Cmd):
                 subargs = ' '.join(subargs)
                 self.do_update(" ".join([args[0], subargs]))
                 return False
+        if args[0] not in type(self).valid_classes and args[1][:-2] in type(self).valid_dot_ops:
+            print("** class doesn't exist **")
+            return False
         super().default(line)
 
     def do_quit(self, arg):
@@ -180,7 +192,7 @@ class HBNBCommand(cmd.Cmd):
         print(all_list)
 
     def do_update(self, line):
-        """  Updates an instance based on the class name and id\n"""
+        """Updates an instance based on the class name and id\n"""
         if not line:
             print("** class name missing **")
             return False
