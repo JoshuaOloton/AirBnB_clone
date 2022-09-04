@@ -37,14 +37,14 @@ class FileStorage:
 
     def reload(self):
         """ deserializes JSON file to __objects (if (__file_path) exists """
-        loaded_dict = {}
         try:
             with open(type(self).__file_path, encoding='utf-8') as file:
                 loaded_dict = json.load(file)
         except Exception:
-            pass
+            return
         else:
             from models import base_model
             for key, value in loaded_dict.items():
                 obj_class = eval(value["__class__"])
-                type(self).__objects[key] = obj_class(**value)
+                # type(self).__objects[key] = obj_class(**value)
+                self.new(obj_class(**value))
