@@ -47,5 +47,5 @@ class FileStorage:
             for key, value in loaded_dict.items():
                 obj_class = eval(value["__class__"])
                 # type(self).__objects[key] = obj_class(**value)
-                del o["__class__"]
+                del value["__class__"]
                 self.new(obj_class(**value))
